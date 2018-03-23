@@ -1,0 +1,23 @@
+package com.sample
+
+//list any import classes here.
+import studentSide.Major;
+import courseSide.Course;
+import studentSide.Student;
+import studentSide.StudentRecords;
+import courseSide.CourseRecommendation;
+ 
+rule "To CSIS 162"
+    when
+        //conditions
+        $CSMajor: Major (code == "CSIS", option == "CS")
+        $StudentRecordsObject: StudentRecords (major == $CSMajor)
+        $recommend: CourseRecommendation (student == $StudentRecordsObject.student)
+        eval($StudentRecordsObject.checkRecord("CSIS", 161, 2.0) )
+        $CSIS162: Course (courseNum == 162, courseCode == "CSIS")
+    then
+        //actions
+        $recommend.getCourseList().add($CSIS162);
+end
+
+
