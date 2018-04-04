@@ -104,7 +104,7 @@ public class TestCSOption {
 	public void testTo162() {
 		sessionStatefull = KnowledgeSessionHelper
 				.getStatefulKnowledgeSessionWithCallBack(kieContainer, "ksession-csisrules");
-		/*
+		
 		csStuRecords.addRecord("CSIS", 161, 2.0);
 		csStuRecords.addRecord("MATH", 156, 2.0);
 		csStuRecords.addRecord("CSIS", 162, 3.1);
