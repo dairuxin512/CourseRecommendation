@@ -318,7 +318,7 @@ rule "To CSIS 355"
         eval($StudentRecordsObject.checkRecord("CSIS", 237, 0.1))
         $CSIS355: Course (courseNum == 355, courseCode == "CSIS")
     then
-        //actions
+        //actions test
         $recommend.getCourseList().add($CSIS355);
 end
 
