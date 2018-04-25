@@ -1,16 +1,9 @@
 package csis;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.util.Scanner;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
-
 import courseSide.Course;
 import courseSide.CourseRecommendation;
 import studentSide.Major;
@@ -18,25 +11,25 @@ import studentSide.Student;
 import studentSide.StudentRecords;
 import util.KnowledgeSessionHelper;
 
-public class TestCSOption {
+public class Driver {
+
+	static Scanner input = new Scanner(System.in);
 	
 	static KieContainer kieContainer;
-	StatelessKieSession sessionStateless = null;
-	KieSession sessionStatefull = null;
+	static StatelessKieSession sessionStateless = null;
+	static KieSession sessionStatefull = null;
 	
 	static Major csMajor;
 	static Course cs161, cs162, cs247, cs248, cs333, cs225, cs235, cs435, cs379, cs484, cs343, cs237, cs630, cs631, cs634, cs355;
 	static Course ma166, ma156, ma236;
 	static Course cs429, cb100, cb300;
 	
-	
-	Student csStudent;
-	StudentRecords csStuRecords;
-	CourseRecommendation csStuRecommends;
-	
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void main(String[] args) {
+		
+		Student csStudent;
+		StudentRecords csStuRecords;
+		CourseRecommendation csStuRecommends;
+		
 		kieContainer = KnowledgeSessionHelper.createRuleBase();
 		csMajor = new Major("Computer Science", "CSIS", "CS");
 		cs161 = new Course (161, "Programming I", "CSIS", "01");
@@ -61,28 +54,11 @@ public class TestCSOption {
 		cs429 = new Course (429, "Operating Systems", "CSIS", "01");
 		cb100 = new Course (100, "CBE First-Year Seminar", "CBE", "01");
 		cb300 = new Course (300, "CBE Professional Skills", "CBE", "01");
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
+		
 		csStudent = new Student ("1000000", "Jon", "M"); 
 		csStuRecords = new StudentRecords(csStudent, csMajor);
 		csStuRecommends = new CourseRecommendation(csStudent);
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		csStudent = null;
-		csStuRecords = null;
-		csStuRecommends = null;
-	}
-
-	@Test
-	public void testTo162() {
+		
 		sessionStatefull = KnowledgeSessionHelper
 				.getStatefulKnowledgeSessionWithCallBack(kieContainer, "ksession-csisrules");
 		
@@ -147,6 +123,15 @@ public class TestCSOption {
 
 		System.out.println("**************************");
 		csStuRecommends.display();
+		
+//		ReadCSV rcsv = new ReadCSV();
+//		
+//		KnowledgeSessionHelper ksh = new KnowledgeSessionHelper();
+//		ksh.createRuleBase();
+//		
+//		System.out.println("What is the major (e.g. CSIS)? ");
+//		String major = input.next();
+		
 	}
 
 }
